@@ -44,3 +44,15 @@
     
     init();
     
+fetch('data/photographers.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    // Faites quelque chose avec les données JSON
+    console.log(data);
+  })
+  .catch(function(error) {
+    // Gérez les erreurs ici
+    console.error('Erreur lors de la récupération des données JSON :', error);
+  });
