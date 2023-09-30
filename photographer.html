@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
       <div class="photograph-header">
@@ -19,18 +19,43 @@
     <div id="contact_modal">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
+          <h2 id="contactMe">Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
 				<form>
 					<div>
 						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+						<input id="prenom"/>
+            <label>Nom</label>
+            <input id="nom"/>
+            <label>Email</label>
+            <input id="email"/>
+            <label>Votre Message</label>
+            <input id="message">
+          </div>
+          <button class="contact_button" onclick="consoleData(event)">Envoyer</button>
 				</form>
 			</div>
 		</div>
+    <div class="sticky-encart">
+    </div>
+    <!-- Lightbox structure -->
+<div id="lightbox" class="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <button class="prev" onclick="move(-1)">&#10094;</button>
+  <div class="content">
+      <img id="lightboxImage" src="" alt="lightbox image">
+      <video id="lightboxVideo" controls>
+          <source src="" type="video/mp4">
+      </video>
+  </div>
+  <button class="next" onclick="move(1)">&#10095;</button>
+</div>
+
+  
+  
+  
+    <script src="/scripts/templates/media.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>

@@ -53,6 +53,7 @@ form {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 60px;
 }
 
 form label {
@@ -73,4 +74,13 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.media-section {
+    width: 100%;
+}
+
+.media-style {
+    width: 350px;
+    height: 300px;
 }
