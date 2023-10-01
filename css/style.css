@@ -200,6 +200,10 @@ line-height: normal;
 
 .sticky-encart {
     position: fixed;  
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
     height: 90px;
     width: 380px;
     bottom: 0px; 
@@ -216,6 +220,16 @@ line-height: normal;
     line-height: normal;
 }
 
+#likes-heart {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+#likes-and-icon {
+    display: flex;
+    align-items: center;
+}
 /* Lightbox */
 
 .lightbox {
@@ -277,4 +291,20 @@ line-height: normal;
 
 .prev:hover, .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+#trier-and-button {
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+}
+
+#trier-p {
+    color: #000;
+font-family: DM Sans;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
 }

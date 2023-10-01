@@ -130,10 +130,16 @@ async function main() {
      });
  
 
-    //********************************************* */
+    /////////////////////////////////////////////////////////////////
 
 
 
+     const trierAndButtonContainer = document.createElement('span');
+     trierAndButtonContainer.setAttribute('id', 'trier-and-button');
+     const trier = document.createElement('p');
+     trier.setAttribute('id', 'trier-p');
+     trier.textContent = 'Trier Par';
+     trierAndButtonContainer.appendChild(trier);
 
     const dropdownContainer = document.createElement('div');
 dropdownContainer.style.position = 'relative';
@@ -199,19 +205,37 @@ dropdownContainer.addEventListener('mouseout', () => {
     dropdown.style.display = 'none';
 });
 
-document.body.appendChild(dropdownContainer);
-
+// document.body.appendChild(dropdownContainer);
+document.body.appendChild(trierAndButtonContainer);
+trierAndButtonContainer.appendChild(dropdownContainer);
 
    
 
       // Calculate the initial total likes from all media
     const totalLikes = calculateTotalLikes(matchingMedia);
 
-    // Set the initial value of the sticky-encart div with the total likes
+    // Sélectionnez la div .sticky-encart
     const stickyEncart = document.querySelector('.sticky-encart');
-    stickyEncart.textContent = totalLikes;
 
- 
+    // Créez un élément span pour contenir le nombre de "likes" et l'icône
+    const likesAndHeart = document.createElement('span');
+    likesAndHeart.setAttribute('id', 'likes-heart');
+
+    // Créez un élément p pour afficher le nombre total de "likes"
+    const likesP = document.createElement('p');
+    likesP.setAttribute('id', 'likes-p');
+    likesP.textContent = totalLikes;
+
+    // Sélectionnez l'icône
+    const icon = document.querySelector('.fa-solid');
+
+    // Ajoutez l'icône et le paragraphe à l'élément span
+    likesAndHeart.appendChild(icon);
+    likesAndHeart.appendChild(likesP);
+
+    // Ajoutez l'élément span à la div .sticky-encart
+    stickyEncart.appendChild(likesAndHeart);
+
 
     // Display matching media
     if (matchingMedia.length > 0) {
@@ -254,7 +278,7 @@ function handleLikeClick(event) {
     event.target.setAttribute('data-liked', 'true');
 
     // Update the total likes in the sticky-encart div
-    const totalLikesElement = document.querySelector('.sticky-encart');
+    const totalLikesElement = document.querySelector('#likes-p');
     const currentTotalLikes = parseInt(totalLikesElement.textContent, 10);
     totalLikesElement.textContent = (currentTotalLikes + 1);
 }

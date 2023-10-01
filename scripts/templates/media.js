@@ -35,6 +35,16 @@ function photographerTemplate(data) {
     taglineElement.textContent = tagline;
     divInfos.appendChild(taglineElement);
 
+    const stickyEncart = document.querySelector('.sticky-encart');
+    const priceDay = document.createElement('p');
+    priceDay.textContent = price + "€/jour";
+    priceDay.setAttribute('id', 'priceDay');
+
+    
+    stickyEncart.appendChild(priceDay);
+
+
+
     
 
     section.insertBefore(divInfos, section.firstChild);
@@ -107,13 +117,21 @@ function mediaTemplate(data, index) {
         mediaLikes.setAttribute('class', 'like-counter');
         mediaLikes.setAttribute('data-liked', 'false');  // Initialize the data-liked attribute
 
-        
+        const icon = document.createElement('i');
+        icon.classList.add('fa-solid', 'fa-heart');
+
+        const likeAndIcon = document.createElement('span');
+        likeAndIcon.setAttribute('id', 'likes-and-icon');
+
 
         article.appendChild(mediaElement);
         article.appendChild(titleLikes);
 
         titleLikes.appendChild(mediaTitle);
-        titleLikes.appendChild(mediaLikes);
+        titleLikes.appendChild(likeAndIcon)
+        likeAndIcon.appendChild(mediaLikes);
+        likeAndIcon.appendChild(icon);
+
 
 
         return article;
