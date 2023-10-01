@@ -289,55 +289,55 @@ function handleLikeClick(event) {
 
 
 
-let currentMediaIndex = 0;
-// Only get images and videos within the section with id 'target-section'
-const targetSection = document.getElementById('media-section');
-const mediaArray = targetSection.querySelectorAll('article img, article video');
-console.log(mediaArray)
-
-const lightbox = document.getElementById('lightbox');
-const lightboxImage = document.getElementById('lightboxImage');
-const lightboxVideo = document.getElementById('lightboxVideo');
-
-console.log("Total media elements:", mediaArray.length);
-
-
 function openLightbox(index) {
-    currentMediaIndex = index;
-    if (index < 0 || index >= mediaArray.length) {
-        console.error("Invalid index:", index);
-        return;
-    }
-
-    if (mediaArray[index].tagName === 'IMG') {
-        lightboxImage.src = mediaArray[index].src;
-        lightboxImage.style.display = 'block';
-        lightboxVideo.style.display = 'none';
-    } else {
-        lightboxVideo.src = mediaArray[index].src;
-        lightboxVideo.style.display = 'block';
-        lightboxImage.style.display = 'none';
-    }
-
-    lightbox.style.display = 'block';
+    document.getElementById('lightbox').style.display = 'block';
+    showSlides(slideIndex = index);
 }
 
 function closeLightbox() {
-    lightbox.style.display = 'none';
+    document.getElementById('lightbox').style.display = 'none';
 }
 
-function move(direction) {
-    currentMediaIndex += direction;
-    if (currentMediaIndex < 0) {
-        currentMediaIndex = mediaArray.length - 1;
-    } else if (currentMediaIndex >= mediaArray.length) {
-        currentMediaIndex = 0;
+function moveSlide(n) {
+    showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+    const slides = mediaItems;
+    const lightbox = document.getElementById('lightbox');
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+
+    const mediaSrc = slides[slideIndex-1];
+    const existingImage = document.getElementById('lightboxImage');
+    const existingVideo = document.getElementById('lightboxVideo');
+
+    if (mediaSrc.endsWith('.jpg')) {
+        // C'est une image
+        if (existingVideo) {
+            existingVideo.remove();
+        }
+        if (!existingImage) {
+            const lightboxImage = document.createElement('img');
+            lightboxImage.className = 'lightbox-content';
+            lightboxImage.id = 'lightboxImage';
+            lightbox.insertBefore(lightboxImage, lightbox.children[1]);
+        }
+        document.getElementById('lightboxImage').src = mediaSrc;
+    } else if (mediaSrc.endsWith('.mp4')) {
+        // C'est une vidéo
+        if (existingImage) {
+            existingImage.remove();
+        }
+        if (!existingVideo) {
+            const lightboxVideo = document.createElement('video');
+            lightboxVideo.className = 'lightbox-content';
+            lightboxVideo.id = 'lightboxVideo';
+            lightboxVideo.controls = true;
+            lightbox.insertBefore(lightboxVideo, lightbox.children[1]);
+        }
+        document.getElementById('lightboxVideo').src = mediaSrc;
     }
-    openLightbox(currentMediaIndex);
 }
 
-// Attach click event to all media
-mediaArray.forEach((media, index) => {
-    media.addEventListener('click', () => openLightbox(index));
-});
 

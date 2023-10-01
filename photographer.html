@@ -41,18 +41,14 @@
     <div class="sticky-encart">
       <i class="fa-solid fa-heart"></i>
     </div>
-    <!-- Lightbox structure -->
-<div id="lightbox" class="lightbox">
-  <span class="close" onclick="closeLightbox()">&times;</span>
-  <button class="prev" onclick="move(-1)">&#10094;</button>
-  <div class="content">
-      <img id="lightboxImage" src="" alt="lightbox image">
-      <video id="lightboxVideo" controls>
-          <source src="" type="video/mp4">
-      </video>
+    
+    <div id="lightbox" class="lightbox">
+      <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+      <img class="lightbox-content" id="lightboxImage">
+      <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+      <a class="next" onclick="moveSlide(1)">&#10095;</a>
   </div>
-  <button class="next" onclick="move(1)">&#10095;</button>
-</div>
+  
 
   
   

@@ -55,51 +55,37 @@ function photographerTemplate(data) {
 
 
 function mediaTemplate(data, index) {
-    const { name, image, title, likes, video} = data;
+    const { name, image, title, likes, video } = data;
 
     const namePhotograph = document.createElement('h2');
     namePhotograph.textContent = name;
-    
+
     const picture = image ? `assets/images/${image}` : null;
     const videoMedia = video ? `assets/images/${video}` : null;
 
     let mediaAlt, mediaElement;
-    
 
     if (picture) {
-
         mediaAlt = picture.replace('.jpg', '').replace(/([a-z])([A-Z])/g, '$1 $2');
         mediaElement = document.createElement('img');
-        // Attach the click event to the media element
-        mediaElement.addEventListener('click', () => openLightbox(index));
-
         mediaElement.setAttribute("src", picture);
-        mediaElement.setAttribute("onclick", `openLightbox(${mediaItems.length})`);
-        mediaItems.push(picture);
-
         mediaElement.setAttribute("alt", mediaAlt);
         mediaElement.setAttribute("class", "media-size");
-       
+        mediaItems.push(picture);
+        mediaElement.addEventListener('click', () => openLightbox(index+1));
 
     } else if (videoMedia) {
-
         mediaAlt = videoMedia.replace('.mp4', '').replace(/([a-z])([A-Z])/g, '$1 $2');
         mediaElement = document.createElement('video');
         const source = document.createElement('source');
         source.setAttribute("src", videoMedia);
-        // Attach the click event to the media element
-        mediaElement.addEventListener('click', () => openLightbox(index));
-
-        mediaElement.setAttribute("onclick", `openLightbox(${mediaItems.length})`);
-        mediaItems.push(videoMedia);
-
         source.setAttribute("type", "video/mp4");
         mediaElement.appendChild(source);
         mediaElement.setAttribute("alt", mediaAlt);
         mediaElement.setAttribute("controls", "true");
         mediaElement.setAttribute("class", "media-size");
-        
-
+        mediaItems.push(videoMedia);
+        mediaElement.addEventListener('click', () => openLightbox(index+1));
     }
 
     function getMediaCardDOM() {
@@ -123,21 +109,18 @@ function mediaTemplate(data, index) {
         const likeAndIcon = document.createElement('span');
         likeAndIcon.setAttribute('id', 'likes-and-icon');
 
-
         article.appendChild(mediaElement);
         article.appendChild(titleLikes);
 
         titleLikes.appendChild(mediaTitle);
-        titleLikes.appendChild(likeAndIcon)
+        titleLikes.appendChild(likeAndIcon);
         likeAndIcon.appendChild(mediaLikes);
         likeAndIcon.appendChild(icon);
-
-
 
         return article;
     }
 
-    return { getMediaCardDOM};
+    return { getMediaCardDOM };
 }
 
 

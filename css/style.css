@@ -252,7 +252,7 @@ line-height: normal;
     max-width: 700px;
 }
 
-.lightbox-close {
+.close-lightbox {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -262,20 +262,21 @@ line-height: normal;
     transition: 0.3s;
 }
 
-.lightbox-close:hover,
-.lightbox-close:focus {
+.close-lightbox:hover,
+.close-lightbox:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }
 
-.prev, .next {
+.prev,
+.next {
     cursor: pointer;
     position: absolute;
     top: 50%;
     width: auto;
-    margin-top: -50px;
     padding: 16px;
+    margin-top: -50px;
     color: white;
     font-weight: bold;
     font-size: 20px;
@@ -289,9 +290,11 @@ line-height: normal;
     border-radius: 3px 0 0 3px;
 }
 
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
+
 
 
 #trier-and-button {
