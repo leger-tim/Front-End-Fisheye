@@ -6,20 +6,20 @@ let slideIndex = 1;
 const mediaItems = [];
 
 
-// Sort by date
-const sortByDate = (mediaArray) => {
-    return mediaArray.sort((a, b) => new Date(a.date) - new Date(b.date));
-}
+// // Sort by date
+// const sortByDate = (mediaArray) => {
+//     return mediaArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+// }
 
-// Sort by likes
-const sortByLikes = (mediaArray) => {
-    return mediaArray.sort((a, b) => b.likes - a.likes);
-}
+// // Sort by likes
+// const sortByLikes = (mediaArray) => {
+//     return mediaArray.sort((a, b) => b.likes - a.likes);
+// }
 
-// Sort by title
-const sortByTitle = (mediaArray) => {
-    return mediaArray.sort((a, b) => a.title.localeCompare(b.title));
-}
+// // Sort by title
+// const sortByTitle = (mediaArray) => {
+//     return mediaArray.sort((a, b) => a.title.localeCompare(b.title));
+// }
 
 function displayMedia(mediaArray) {
     const mediaSection = document.getElementById('media-section');
@@ -103,113 +103,87 @@ async function main() {
     }
 
 
+// ///////////////////////////////////////
 
-     // Add sorting buttons
-     const sortDateButton = document.createElement('button');
+// Fonctions de tri
+const sortByDate = (mediaArray) => {
+    return mediaArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+};
 
-     sortDateButton.innerText = 'Date';
-     sortDateButton.addEventListener('click', () => {
-         const sortedMedia = sortByDate([...matchingMedia]);
-         displayMedia(sortedMedia);
-     });
- 
-     const sortLikesButton = document.createElement('button');
- 
-     sortLikesButton.innerText = 'Popularité';
-     sortLikesButton.addEventListener('click', () => {
-         const sortedMedia = sortByLikes([...matchingMedia]);
-         displayMedia(sortedMedia);
-     });
- 
-     const sortTitleButton = document.createElement('button');
- 
-         sortTitleButton.innerText = 'Titre';
-         sortTitleButton.addEventListener('click', () => {
-         const sortedMedia = sortByTitle([...matchingMedia]);
-         displayMedia(sortedMedia);
-     });
- 
+const sortByLikes = (mediaArray) => {
+    return mediaArray.sort((a, b) => b.likes - a.likes);
+};
 
-    /////////////////////////////////////////////////////////////////
+const sortByTitle = (mediaArray) => {
+    return mediaArray.sort((a, b) => a.title.localeCompare(b.title));
+};
 
+// Création du conteneur principal du dropdown
+const dropdownContainer = document.createElement('div');
+dropdownContainer.setAttribute('class', 'dropdown-top');
 
+// Création du bouton principal du dropdown
+const mainDropdownButton = document.createElement('button');
+mainDropdownButton.setAttribute('class', 'dropbtn');
+mainDropdownButton.innerText = 'Date'; // Valeur par défaut
+dropdownContainer.appendChild(mainDropdownButton);
 
-     const trierAndButtonContainer = document.createElement('span');
-     trierAndButtonContainer.setAttribute('id', 'trier-and-button');
-     const trier = document.createElement('p');
-     trier.setAttribute('id', 'trier-p');
-     trier.textContent = 'Trier Par';
-     trierAndButtonContainer.appendChild(trier);
+// Création du contenu du dropdown
+const dropdownContent = document.createElement('div');
+dropdownContent.setAttribute('id', 'myDropdown');
+dropdownContent.setAttribute('class', 'dropdown-content dropdown');
+dropdownContainer.appendChild(dropdownContent);
 
-    const dropdownContainer = document.createElement('div');
-dropdownContainer.style.position = 'relative';
+// Ajout des options de tri
+const options = [
+    { text: 'Date', sortFunction: sortByDate },
+    { text: 'Popularité', sortFunction: sortByLikes },
+    { text: 'Titre', sortFunction: sortByTitle }
+];
 
-const visibleButton = document.createElement('button');
-visibleButton.innerText = 'Date'; // Default value
-visibleButton.addEventListener('click', () => {
-    if (visibleButton.innerText === 'Date') {
-        const sortedMedia = sortByDate([...matchingMedia]);
-        displayMedia(sortedMedia);
-    } else if (visibleButton.innerText === 'Popularité') {
-        const sortedMedia = sortByLikes([...matchingMedia]);
-        displayMedia(sortedMedia);
-    } else if (visibleButton.innerText === 'Titre') {
-        const sortedMedia = sortByTitle([...matchingMedia]);
-        displayMedia(sortedMedia);
-    }
-});
-dropdownContainer.appendChild(visibleButton);
-
-const dropdown = document.createElement('div');
-dropdown.style.display = 'none';
-dropdown.style.position = 'absolute';
-dropdown.style.top = '100%';
-dropdown.style.zIndex = '1';
-
-const allButtons = [sortDateButton, sortLikesButton, sortTitleButton];
-
-function rebuildDropdown() {
-    // Clear the dropdown
-    while (dropdown.firstChild) {
-        dropdown.removeChild(dropdown.firstChild);
+const updateDropdownContent = (selectedText) => {
+    // Vider le contenu actuel
+    while (dropdownContent.firstChild) {
+        dropdownContent.removeChild(dropdownContent.firstChild);
     }
 
-    // Append buttons to the dropdown if their text is different from the visibleButton's text
-    allButtons.forEach(button => {
-        if (button.innerText !== visibleButton.innerText) {
-            dropdown.appendChild(button);
+    // Remplir avec les options non sélectionnées
+    options.forEach(option => {
+        if (option.text !== selectedText) {
+            const aElement = document.createElement('a');
+            aElement.href = '#';
+            aElement.innerText = option.text;
+            aElement.setAttribute('class', 'link-drop');
+            aElement.addEventListener('click', () => {
+                mainDropdownButton.innerText = option.text;
+                const sortedMedia = option.sortFunction([...matchingMedia]);
+                displayMedia(sortedMedia);
+                updateDropdownContent(option.text); // Mettre à jour le contenu du dropdown après avoir changé l'option sélectionnée
+            });
+            dropdownContent.appendChild(aElement);
         }
     });
-}
+};
 
-allButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Update the visibleButton's text
-        visibleButton.innerText = button.innerText;
-        dropdown.style.display = 'none';
+updateDropdownContent(mainDropdownButton.innerText); // Initialiser avec "Date" comme option sélectionnée par défaut
 
-        // Rebuild the dropdown
-        rebuildDropdown();
-    });
+// Ajout du dropdown au body
+document.body.appendChild(dropdownContainer);
+
+// Gestion de l'affichage du contenu du dropdown
+mainDropdownButton.addEventListener('click', () => {
+    if (dropdownContent.classList.contains('open')) {
+        dropdownContent.classList.remove('open');
+    } else {
+        dropdownContent.classList.add('open');
+    }
 });
 
-// Initially build the dropdown
-rebuildDropdown();
 
-dropdownContainer.appendChild(dropdown);
 
-dropdownContainer.addEventListener('mouseover', () => {
-    dropdown.style.display = 'block';
-});
-dropdownContainer.addEventListener('mouseout', () => {
-    dropdown.style.display = 'none';
-});
 
-// document.body.appendChild(dropdownContainer);
-document.body.appendChild(trierAndButtonContainer);
-trierAndButtonContainer.appendChild(dropdownContainer);
 
-   
+// /////////////////////////////////////////
 
       // Calculate the initial total likes from all media
     const totalLikes = calculateTotalLikes(matchingMedia);

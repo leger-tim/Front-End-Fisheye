@@ -15,6 +15,7 @@ function photographerTemplate(data) {
 
         const link = document.createElement('a');
         link.setAttribute("href", "photographer.html?id="+id)
+        link.setAttribute('class', 'link-image');
 
         const containerImg = document.createElement('div');
         containerImg.setAttribute("class", "container-img");
@@ -42,8 +43,8 @@ function photographerTemplate(data) {
 
         containerImg.appendChild(img);
         link.appendChild(containerImg); 
+        link.appendChild(h2);
         article.appendChild(link);
-        article.appendChild(h2);
         article.appendChild(cityCountry);
         article.appendChild(taglineP);
         article.appendChild(priceP);

@@ -105,6 +105,8 @@ function mediaTemplate(data, index) {
 
         const icon = document.createElement('i');
         icon.classList.add('fa-solid', 'fa-heart');
+        icon.setAttribute('id', 'heart')
+        icon.setAttribute('aria-label', 'likes')
 
         const likeAndIcon = document.createElement('span');
         likeAndIcon.setAttribute('id', 'likes-and-icon');
