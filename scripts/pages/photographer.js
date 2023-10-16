@@ -118,6 +118,7 @@ const sortByTitle = (mediaArray) => {
     return mediaArray.sort((a, b) => a.title.localeCompare(b.title));
 };
 
+
 // Création du conteneur principal du dropdown
 const dropdownContainer = document.createElement('div');
 dropdownContainer.setAttribute('class', 'dropdown-top');
@@ -125,7 +126,31 @@ dropdownContainer.setAttribute('class', 'dropdown-top');
 // Création du bouton principal du dropdown
 const mainDropdownButton = document.createElement('button');
 mainDropdownButton.setAttribute('class', 'dropbtn');
-mainDropdownButton.innerText = 'Date'; // Valeur par défaut
+
+// Création d'un conteneur div pour le texte "Date"
+const dateTextContainer = document.createElement('div');
+dateTextContainer.classList.add('date-text-container');
+
+// Création du texte "Date"
+const dateText = document.createElement('span');
+dateText.innerText = 'Date';
+
+// Ajout du texte "Date" au conteneur
+dateTextContainer.appendChild(dateText);
+
+// Ajout du conteneur du texte "Date" au bouton principal
+mainDropdownButton.appendChild(dateTextContainer);
+
+// Création de l'élément img pour l'image vectorielle
+const arrowImage = document.createElement('img');
+arrowImage.src = '/assets/icons/vector.png'; // Utilisez le chemin correct vers votre image PNG
+arrowImage.alt = 'Flèche'; // Ajoutez une description alternative pour l'accessibilité
+arrowImage.classList.add('arrow-position');
+
+
+// Ajout de l'image au bouton principal
+mainDropdownButton.appendChild(arrowImage);
+
 dropdownContainer.appendChild(mainDropdownButton);
 
 // Création du contenu du dropdown
@@ -148,14 +173,19 @@ const updateDropdownContent = (selectedText) => {
     }
 
     // Remplir avec les options non sélectionnées
-    options.forEach(option => {
+    options.forEach((option, index) => {
         if (option.text !== selectedText) {
+            // Créer la ligne <hr> et ajouter une classe
+            const hr = document.createElement('hr');
+            hr.classList.add('custom-hr-class'); // Ajouter une classe CSS
+            dropdownContent.appendChild(hr);
+
             const aElement = document.createElement('a');
             aElement.href = '#';
             aElement.innerText = option.text;
             aElement.setAttribute('class', 'link-drop');
             aElement.addEventListener('click', () => {
-                mainDropdownButton.innerText = option.text;
+                mainDropdownButton.querySelector('.date-text-container span').innerText = option.text; // Mettre à jour le texte "Date"
                 const sortedMedia = option.sortFunction([...matchingMedia]);
                 displayMedia(sortedMedia);
                 updateDropdownContent(option.text); // Mettre à jour le contenu du dropdown après avoir changé l'option sélectionnée
@@ -167,17 +197,46 @@ const updateDropdownContent = (selectedText) => {
 
 updateDropdownContent(mainDropdownButton.innerText); // Initialiser avec "Date" comme option sélectionnée par défaut
 
+containerTrier = document.createElement('span');
+containerTrier.classList = "container-trier-par";
+pTrierPar = document.createElement('p');
+pTrierPar.textContent = "Trier Par";
+pTrierPar.classList = 'p-trier-par';
+
 // Ajout du dropdown au body
-document.body.appendChild(dropdownContainer);
+
+spanTrierPar = document.createElement('span');
+spanTrierPar.classList = 'span-trier-par';
+
+spanTrierPar.appendChild(dropdownContainer);
+containerTrier.appendChild(pTrierPar);
+
+containerTrier.appendChild(spanTrierPar);
+document.body.appendChild(containerTrier);
+
+arrowImage.classList.add('rotate-arrow'); // Supprimez la classe pour la rotation
 
 // Gestion de l'affichage du contenu du dropdown
 mainDropdownButton.addEventListener('click', () => {
+    const arrowImage = mainDropdownButton.querySelector('img'); // Sélectionnez l'image
     if (dropdownContent.classList.contains('open')) {
         dropdownContent.classList.remove('open');
+        arrowImage.classList.add('rotate-arrow'); // Ajoutez la classe pour la rotation lorsque le dropdown se ferme
     } else {
         dropdownContent.classList.add('open');
+        arrowImage.classList.remove('rotate-arrow'); // Supprimez la classe pour la rotation lorsque le dropdown s'ouvre
     }
 });
+
+// Gestion de la sélection d'un élément du dropdown
+dropdownContent.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A') {
+        dropdownContent.classList.remove('open'); // Fermez le dropdown lorsque vous cliquez sur un élément
+        const arrowImage = mainDropdownButton.querySelector('img'); // Sélectionnez à nouveau l'image
+        arrowImage.classList.add('rotate-arrow'); // Ajoutez la classe pour la rotation lorsque le dropdown se ferme
+    }
+});
+
 
 
 
@@ -279,6 +338,7 @@ function moveSlide(n) {
 function showSlides(n) {
     const slides = mediaItems;
     const lightbox = document.getElementById('lightbox');
+    lightbox.setAttribute('aria-label', 'image closup view');
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
 

@@ -17,7 +17,7 @@ function photographerTemplate(data) {
     const divInfos = document.createElement('div');
     divInfos.setAttribute('class', 'infos-style');
 
-    const nameElement = document.createElement('h2');
+    const nameElement = document.createElement('h1');
     nameElement.textContent = name;
     divInfos.appendChild(nameElement);
 
@@ -110,6 +110,9 @@ function mediaTemplate(data, index) {
 
         const likeAndIcon = document.createElement('span');
         likeAndIcon.setAttribute('id', 'likes-and-icon');
+
+        const imageNameLightbox = document.getElementById('ImageName');
+        imageNameLightbox.textContent = title;
 
         article.appendChild(mediaElement);
         article.appendChild(titleLikes);

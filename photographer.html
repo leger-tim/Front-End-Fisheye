@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" xml:lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -25,13 +25,13 @@
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
+						<label for="prenom">Prénom</label>
 						<input id="prenom"/>
-            <label>Nom</label>
+            <label for="nom">Nom</label>
             <input id="nom"/>
-            <label>Email</label>
+            <label for="email">Email</label>
             <input id="email"/>
-            <label>Votre Message</label>
+            <label for="message">Votre Message</label>
             <input id="message">
           </div>
           <button class="contact_button" onclick="consoleData(event)">Envoyer</button>
@@ -47,6 +47,7 @@
       <img class="lightbox-content" id="lightboxImage">
       <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
       <a class="next" onclick="moveSlide(1)">&#10095;</a>
+      <span id="ImageName"></span>
   </div>
   
 

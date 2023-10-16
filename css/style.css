@@ -136,7 +136,7 @@ h1 {
     padding-left: 50px;
 }
 
-.infos-style h2 {
+.infos-style h1 {
     color: #D3573C;
     font-family: DM Sans;
     font-size: 64px;
@@ -232,11 +232,21 @@ h1 {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    margin-left: 20px;
+}
+
+#priceDay {
+    margin-right: 20px;
 }
 
 #likes-and-icon {
     display: flex;
     align-items: center;
+    margin-right: 20px;
+}
+
+#likes-p {
+    margin-right:5px;
 }
 /* Lightbox */
 
@@ -256,9 +266,18 @@ h1 {
 .lightbox-content {
     margin: auto;
     display: block;
-    width: 1050px;
-    height: 900px;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
+}
+
+#ImageName {
+    display: block;
+    margin: auto;
+    width: 80%;
+    color:#901C1C;
+    font-size: 24px;
+    font-weight: 400px;
 }
 
 .close-lightbox {
@@ -267,8 +286,6 @@ h1 {
     top: 15px;
     right: 35px;
     color: #901C1C;
-    font-weight: bold;
-    transition: 0.3s;
 }
 
 .close-lightbox:hover,
@@ -285,27 +302,42 @@ h1 {
     top: 50%;
     width: auto;
     height: 96px;
-    padding: 16px;
+    padding-right: 50px;
     margin-top: -50px;
     color: #901C1C;
-    font-weight: bold;
-    transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    font-size: 96px;
+    font-size: 75px;
 }
-
+.prev {
+    padding-left: 50px;
+}
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
 
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+/* container trier */
+
+.container-trier-par {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+/* Span trier par */
+
+.p-trier-par {
+    margin: 0 0 0 100px;
+    font-weight: bold;
+
 }
 
-
+.span-trier-par {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
 
 #trier-and-button {
     display: flex;
@@ -326,6 +358,11 @@ line-height: normal;
 
 
 .dropbtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     background-color: transparent;
     color: white;
     border: none;
@@ -339,6 +376,9 @@ line-height: normal;
 }
 
 .link-drop {
+    display: flex;
+    justify-content: center;
+    min-height: 69px;
     background-color: transparent;
     color: white;
     border: none;
@@ -351,27 +391,6 @@ line-height: normal;
     text-decoration: none;
     align-items: center;
 }
-
-/* Ajouter une ligne avant le premier lien */
-.link-drop:first-child::before {
-    content: "";
-    display: block;
-    height: 1px;
-    background: white; /* ou toute autre couleur que vous préférez */
-    width: 90%;
-    margin-top: 10px; /* ajustez selon vos préférences */
-}
-
-/* Ajouter une ligne après le premier lien */
-.link-drop:first-child::after {
-    content: "";
-    display: block;
-    height: 1px;
-    background: white; /* ou toute autre couleur que vous préférez */
-    width: 90%;
-    margin-bottom: 10px; /* ajustez selon vos préférences */
-}
-
 
 .dropdown-top {
     background-color: #901C1C;
@@ -391,13 +410,31 @@ line-height: normal;
     flex-direction: column;
     text-align: center;
     justify-content: space-around;
-    height: 140px;
+    height: 170px;
 }
 
 .dropdown-content.open {
     display: flex; /* Affiche le contenu du dropdown lorsqu'il est ouvert */
     align-items: center;
 }
+
+.custom-hr-class {
+    width: 80%;
+}
+
+/* Style pour la rotation de l'image */
+.rotate-arrow {
+    transform: rotate(180deg); /* Rotation de 180 degrés */
+}
+
+.arrow-position {
+    position: absolute;
+    left: 130px;
+}
+
+
+
+
 
 
 
